@@ -33,3 +33,24 @@
   --color-sage-900: oklch(0.135 0.025 145.0);
   --color-sage-950: oklch(0.075 0.014 145.0);
 }
+
+/* vue-music-flow: align chrome with Nuxt UI `bg-default` / semantic tokens */
+.vue-music-flow {
+  --breakpoint-phone: 40rem;
+  --breakpoint-tablet: 80rem;
+
+  --mw-color-mw-primary-dark: var(--ui-bg-muted);
+  --mw-color-mw-primary: var(--ui-bg);
+  --mw-color-mw-secondary: var(--ui-bg-elevated);
+  --mw-color-mw-primary-border: var(--ui-border);
+  --mw-color-mw-primary-hover: var(--color-primary-500);
+  --mw-color-mw-primary-active: var(--color-primary-600);
+  --mw-color-mw-primary-typography: var(--ui-text-highlighted);
+  --mw-color-mw-secondary-typography: var(--ui-text-muted);
+  
+  --scroll-bar-background-light: var(--ui-bg-elevated);
+  --scroll-bar-background: var(--ui-bg);
+  --scroll-bar-slider: var(--color-primary-500);
+  --scroll-bar-shadow: inset 0 0 6px color-mix(in oklab, var(--ui-border) 45%, transparent);
+  --scroll-bar-width: 6px;
+}
