@@ -32,8 +32,10 @@ const navItems = computed<NavigationMenuItem[]>(() => [
   <div class="flex min-h-dvh flex-col">
     <UHeader class="bg-default border-none" mode="modal">
       <template #title>
-        <span class="inline-block rotate-330 text-lg">❤</span>
-        lamar.love
+        <span class="site-title inline-flex items-center gap-1">
+          <span class="title-heart inline-block rotate-330 text-lg">❤</span>
+          <span>lamar.love</span>
+        </span>
       </template>
       <UNavigationMenu
         class="hidden lg:flex"
@@ -73,3 +75,39 @@ const navItems = computed<NavigationMenuItem[]>(() => [
     <MusicFlow :options="musicFlowOptions" />
   </div>
 </template>
+
+<style scoped>
+.site-title {
+  position: relative;
+  transform-origin: center;
+  will-change: transform, color;
+}
+
+.site-title:hover {
+  color: rgb(239 68 68);
+  animation: title-pop-spin 600ms ease-in-out;
+}
+
+@keyframes title-pop-spin {
+  0% {
+    color: inherit;
+    transform: scale(1) rotate(0deg);
+  }
+
+  35% {
+    color: rgb(239 68 68);
+    transform: scale(1.16) rotate(-5deg);
+  }
+
+  65% {
+    color: rgb(248 113 113);
+    transform: scale(1.06) rotate(2deg);
+  }
+
+  100% {
+    color: rgb(239 68 68);
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+</style>
