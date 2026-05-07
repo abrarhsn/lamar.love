@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import { createMusicFlowWaveformOptions } from "~/composables/musicFlowWaveformOptions";
 
 const { onPlayAsPlaylist, isTrackPlaying } = useMusicFlow(
@@ -6,6 +7,10 @@ const { onPlayAsPlaylist, isTrackPlaying } = useMusicFlow(
 );
 
 const { tunes: tracks, loading } = useTunes();
+
+const sortedTracks = computed(() =>
+  [...tracks.value].sort((a, b) => a.title.localeCompare(b.title, undefined, { sensitivity: "base" }))
+);
 </script>
 
 <template>
@@ -23,16 +28,16 @@ const { tunes: tracks, loading } = useTunes();
 
     <p v-if="loading" class="text-muted text-sm">Loading tracks...</p>
 
-    <ul v-else-if="tracks.length" class="flex flex-col gap-1">
+    <ul v-else-if="sortedTracks.length" class="flex flex-col gap-1">
       <li
-        v-for="track in tracks"
+        v-for="track in sortedTracks"
         :key="track.id"
         class="flex items-center gap-3 rounded-lg px-2 py-1.5 hover:bg-elevated/50"
       >
         <UButton
           size="xs"
           variant="soft"
-          @click="onPlayAsPlaylist(tracks, track)"
+          @click="onPlayAsPlaylist(sortedTracks, track)"
         >
           {{ isTrackPlaying(track.id) ? "Pause" : "Play" }}
         </UButton>

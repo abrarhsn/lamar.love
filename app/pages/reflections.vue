@@ -7,9 +7,9 @@ const { reflections } = useReflections();
     <SleekLineCursor />
     <UContainer class="max-w-xl my-6 md:my-12">
       <div class="mb-9">
-        <h1 class="text-2xl font-medium text-highlighted tracking-tight mb-1">Reflections</h1>
-        <h2 class="text-muted text-sm tracking-tight">
-          A glimpse into my intimate thoughts about you, the world, and everything in between.
+        <h1 class="text-2xl font-medium text-highlighted tracking-tight">Reflections</h1>
+        <h2 class="text-2xl font-medium text-muted tracking-tight leading-7">
+          Intimate thoughts about you, the world, and everything in between.
         </h2>
       </div>
       <div class="space-y-9">

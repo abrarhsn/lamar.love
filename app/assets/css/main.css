@@ -11,6 +11,29 @@
   display: none;
 }
 
+/* Global text selection color */
+::selection {
+  background-color: var(--color-primary-700); /* highlight */
+  color: var(--ui-text-highlighted);          /* selected text */
+}
+
+/* Optional Safari/Firefox compatibility fallback */
+::-moz-selection {
+  background-color: var(--color-primary-700);
+  color: var(--ui-text-highlighted);
+}
+
+/* Invert selection colors in light mode */
+.light ::selection {
+  background-color: var(--color-primary-500);
+  color: var(--ui-text-inverted);
+}
+
+.light ::-moz-selection {
+  background-color: var(--color-primary-500);
+  color: var(--ui-text-inverted);
+}
+
 @theme {
   --font-sans: "Open Sauce One", ui-sans-serif, system-ui, sans-serif;
 }
