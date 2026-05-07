@@ -1,19 +1,9 @@
 <script setup lang="ts">
 import { useInView } from "motion-v";
 import { computed, ref } from "vue";
-import {
-  formatReflectionDate,
-  type Reflection,
-} from "~/composables/useReflections";
+import { formatReflectionDate, type Reflection } from "~/composables/useReflections";
 
-type BadgeColor =
-  | "primary"
-  | "secondary"
-  | "success"
-  | "info"
-  | "warning"
-  | "error"
-  | "neutral";
+type BadgeColor = "primary" | "secondary" | "success" | "info" | "warning" | "error" | "neutral";
 
 const TAG_BADGE_LOOKUP: Record<string, { color: BadgeColor; icon: string }> = {
   love: { color: "error", icon: "i-ph:heart-fill" },
@@ -50,10 +40,12 @@ const reflectionText = computed(() => props.reflection.paragraphs.join("\n\n"));
 <template>
   <div ref="cardRef">
     <UCard
+      class="border-0 ring-0 outline-none shadow-none"
       :ui="{
-        header: 'p-2 sm:p-2',
-        body: 'p-2 sm:p-2',
-        footer: 'p-2 sm:p-2',
+        root: 'border-0 ring-0 shadow-none',
+        header: 'p-0 sm:p-0 pb-3 sm:pb-3 border-0 ring-0',
+        body: 'p-0 sm:p-0 pb-3 sm:pb-3 border-0 ring-0',
+        footer: 'p-0 sm:p-0 border-0 ring-0',
       }"
     >
       <template #header>
@@ -64,11 +56,7 @@ const reflectionText = computed(() => props.reflection.paragraphs.join("\n\n"));
       </template>
 
       <div class="text-sm whitespace-pre-line">
-        <EncryptedText
-          :text="reflectionText"
-          :start="isCardInView"
-          encrypted-class="text-muted"
-        />
+        <EncryptedText :text="reflectionText" :start="isCardInView" encrypted-class="text-muted" />
       </div>
 
       <template #footer>

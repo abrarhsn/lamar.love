@@ -8,7 +8,7 @@ const { reflections } = useReflections();
     <UContainer class="max-w-xl my-6 md:my-12">
       <div class="space-y-9">
         <div v-for="reflection in reflections" :key="reflection.date.getTime()">
-          <ReflectionCard :reflection="reflection"/>
+          <ReflectionCard :reflection="reflection" />
         </div>
       </div>
     </UContainer>
