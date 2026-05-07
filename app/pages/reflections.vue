@@ -14,7 +14,7 @@ const { reflections } = useReflections();
       </div>
       <div class="space-y-9">
         <div v-for="reflection in reflections" :key="reflection.date.getTime()">
-          <ReflectionCard :reflection="reflection" class="transition-all duration-75 hover:scale-102" />
+          <ReflectionCard :reflection="reflection" />
         </div>
       </div>
     </UContainer>
