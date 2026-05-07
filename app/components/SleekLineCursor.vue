@@ -208,7 +208,7 @@ function render(): void {
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.globalCompositeOperation = "lighter";
-    ctx.strokeStyle = `hsla(${Math.round(f.update())},50%,50%,0.2)`;
+    ctx.strokeStyle = `hsla(${Math.round(f.update())},35%,55%,0.22)`;
     ctx.lineWidth = 1;
 
     for (let t = 0; t < E.trails; t++) {
@@ -266,9 +266,9 @@ function initCanvas(): void {
 
   f = new Wave({
     phase: Math.random() * 2 * Math.PI,
-    amplitude: 85,
+    amplitude: 30,
     frequency: 0.0015,
-    offset: 285,
+    offset: 100,
   });
 
   document.addEventListener("mousemove", onMouseMove);

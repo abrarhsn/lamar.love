@@ -3,21 +3,19 @@ import type { NavigationMenuItem } from "@nuxt/ui";
 import { computed } from "vue";
 
 const navItems = computed<NavigationMenuItem[]>(() => [
+  { label: "Ideas", to: "/thoughts" },
   { label: "Moments", to: "/moments" },
-  { label: "Music", to: "/music" },
-  { label: "Dreams", to: "/dreams" },
-  { label: "Contact", to: "/contact" },
+  { label: "Tunes", to: "/tunes" },
+  { label: "Future", to: "/future" },
 ]);
 </script>
 
 <template>
   <div>
     <UHeader class="bg-default border-none" mode="modal">
-      <template #title> 
-        <p>
-            <span class="inline-block text-lg rotate-330">❤</span>
-            lamar.love
-        </p>
+      <template #title>
+        <span class="inline-block text-lg rotate-330">❤</span>
+        lamar.love
       </template>
       <UNavigationMenu
         class="hidden lg:flex"
@@ -25,7 +23,6 @@ const navItems = computed<NavigationMenuItem[]>(() => [
         content-orientation="vertical"
         variant="link"
         :ui="{
-  
           link: 'text-highlighted hover:text-muted',
           linkLeadingIcon: 'text-default hover:text-dimmed',
         }"
@@ -33,13 +30,17 @@ const navItems = computed<NavigationMenuItem[]>(() => [
 
       <template #body>
         <UNavigationMenu
-            :items="navItems"
-            orientation="vertical"
-            class="-mx-2.5"
-            :ui="{
-              link: `font-semibold tracking-tight text-highlighted`,
-            }"
-          />
+          :items="navItems"
+          orientation="vertical"
+          class="-mx-2.5"
+          :ui="{
+            link: `font-semibold tracking-tight text-highlighted`,
+          }"
+        />
+      </template>
+
+      <template #right>
+        <UColorModeButton variant="ghost" />
       </template>
     </UHeader>
 

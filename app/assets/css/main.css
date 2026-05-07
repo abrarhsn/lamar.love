@@ -19,3 +19,17 @@
   --color-vanta-900: oklch(0.110 0.002 263.6);
   --color-vanta-950: oklch(0.040 0.001 263.6);
 }
+
+@theme static {
+  --color-sage-50:  oklch(0.975 0.018 145.0);
+  --color-sage-100: oklch(0.940 0.033 145.0);
+  --color-sage-200: oklch(0.875 0.052 145.0);
+  --color-sage-300: oklch(0.775 0.072 145.0);
+  --color-sage-400: oklch(0.650 0.085 145.0);
+  --color-sage-500: oklch(0.530 0.090 145.0);
+  --color-sage-600: oklch(0.420 0.078 145.0);
+  --color-sage-700: oklch(0.320 0.062 145.0);
+  --color-sage-800: oklch(0.220 0.042 145.0);
+  --color-sage-900: oklch(0.135 0.025 145.0);
+  --color-sage-950: oklch(0.075 0.014 145.0);
+}

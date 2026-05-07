@@ -8,7 +8,7 @@
         </template>
       </UPageCard>
 
-    
+      <UButton label="Add Idea" />
     </UContainer>
   </div>
 </template>
