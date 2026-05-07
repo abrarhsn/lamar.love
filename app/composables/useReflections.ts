@@ -42,7 +42,7 @@ const reflectionsData: Reflection[] = [
       `I used to feel a physical panic when I thought I was missing something. A game, a moment, anything. You felt it too, but you did not let it rule you.`,
       `Because of you I went to my parents one weekend and just watched you all play without me. I sat there and felt nothing but peace. That was entirely new for me. You made that possible.`,
     ],
-    tags: ["Love", "Strength"],
+    tags: ["Strength"],
   },
   {
     name: "Abrar Hassan",
