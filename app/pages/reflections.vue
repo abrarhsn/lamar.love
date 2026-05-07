@@ -6,6 +6,12 @@ const { reflections } = useReflections();
   <div>
     <SleekLineCursor />
     <UContainer class="max-w-xl my-6 md:my-12">
+      <div class="mb-9">
+        <h1 class="text-2xl font-medium text-highlighted tracking-tight mb-1">Reflections</h1>
+        <h2 class="text-muted text-sm tracking-tight">
+          A glimpse into my intimate thoughts about you, the world, and everything in between.
+        </h2>
+      </div>
       <div class="space-y-9">
         <div v-for="reflection in reflections" :key="reflection.date.getTime()">
           <ReflectionCard :reflection="reflection" />
