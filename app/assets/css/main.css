@@ -1,0 +1,21 @@
+
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme {
+  --font-sans: "Open Sauce One", ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme static {
+  --color-vanta-50:  oklch(0.985 0.001 263.6);
+  --color-vanta-100: oklch(0.955 0.002 263.6);
+  --color-vanta-200: oklch(0.890 0.003 263.6);
+  --color-vanta-300: oklch(0.790 0.004 263.6);
+  --color-vanta-400: oklch(0.640 0.005 263.6);
+  --color-vanta-500: oklch(0.490 0.005 263.6);
+  --color-vanta-600: oklch(0.380 0.005 263.6);
+  --color-vanta-700: oklch(0.280 0.004 263.6);
+  --color-vanta-800: oklch(0.190 0.003 263.6);
+  --color-vanta-900: oklch(0.110 0.002 263.6);
+  --color-vanta-950: oklch(0.040 0.001 263.6);
+}
