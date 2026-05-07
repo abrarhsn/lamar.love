@@ -3,6 +3,8 @@ import type { NavigationMenuItem } from "@nuxt/ui";
 import type { TMusicFlowOptions } from "vue-music-flow";
 import { formatTimeAgo } from "@vueuse/core";
 import { computed, ref, watch } from "vue";
+import type { NotificationItem } from "~/composables/useNotifications";
+// import paperSlideSfx from "~/assets/effects/Paper Slide - Sound Effect - Sound God (youtube)-[AudioTrimmer.com].mp3";
 
 const FALLBACK_PRIMARY = "#529766";
 const colorMode = useColorMode();
@@ -54,6 +56,36 @@ watch(musicFlowOptions, (options) => {
 
 const isNotificationsSlideoverOpen = ref(false);
 const { notifications } = useNotifications();
+const notificationForModal = ref<NotificationItem | null>(null);
+const notificationModalOpen = ref(false);
+
+// let paperSlideAudio: HTMLAudioElement | null = null;
+//
+// function playNotificationOpenSound() {
+//   if (!import.meta.client) return;
+//   if (!paperSlideAudio) {
+//     paperSlideAudio = new Audio(paperSlideSfx);
+//   }
+//   paperSlideAudio.currentTime = 0;
+//   void paperSlideAudio.play().catch(() => {});
+// }
+
+function openNotificationModal(notification: NotificationItem) {
+  // playNotificationOpenSound();
+  notificationForModal.value = notification;
+  notificationModalOpen.value = true;
+}
+
+watch(notificationModalOpen, (open) => {
+  if (!open) notificationForModal.value = null;
+});
+
+watch(isNotificationsSlideoverOpen, (open) => {
+  if (!open) {
+    notificationModalOpen.value = false;
+    notificationForModal.value = null;
+  }
+});
 
 const navItems = computed<NavigationMenuItem[]>(() => [
   { label: "Reflections", to: "/reflections" },
@@ -108,54 +140,44 @@ const navItems = computed<NavigationMenuItem[]>(() => [
       </template>
     </UHeader>
 
-    <USlideover
-      v-model:open="isNotificationsSlideoverOpen"
-      title="Notifications"
-    >
+    <USlideover v-model:open="isNotificationsSlideoverOpen" title="Notifications">
       <template #body>
-        <NuxtLink
+        <button
           v-for="notification in notifications"
           :key="notification.id"
-          :to="`/inbox?id=${notification.id}`"
-          class="relative -mx-3 flex items-center gap-3 rounded-md px-3 py-2.5 hover:bg-elevated/50 first:-mt-3 last:-mb-3"
+          type="button"
+          class="relative -mx-3 flex w-[calc(100%+1.5rem)] items-center gap-3 rounded-md px-3 py-2.5 text-left hover:bg-elevated/50 first:-mt-3 last:-mb-3"
+          @click="openNotificationModal(notification)"
         >
-          <UChip
-            color="error"
-            :show="!!notification.unread"
-            inset
-          >
-            <UAvatar
-              v-bind="notification.sender.avatar"
-              :alt="notification.sender.name"
-              size="md"
-            />
+          <UChip color="error" :show="!!notification.unread" inset>
+            <UAvatar v-bind="notification.sender.avatar" :alt="notification.sender.name" size="md" />
           </UChip>
 
           <div class="flex-1 text-sm">
             <p class="flex items-center justify-between gap-3">
               <span class="font-medium text-highlighted">{{ notification.sender.name }}</span>
 
-              <time
-                :datetime="notification.date"
-                class="text-xs text-muted"
-              >
+              <time :datetime="notification.date" class="text-xs text-muted">
                 {{ formatTimeAgo(new Date(notification.date)) }}
               </time>
             </p>
 
             <p class="text-dimmed">
-              {{ notification.body }}
+              {{ notification.action }}
             </p>
           </div>
-        </NuxtLink>
+        </button>
       </template>
     </USlideover>
 
+    <NotificationDetailModal
+      v-model:open="notificationModalOpen"
+      :notification="notificationForModal"
+    />
+
     <!-- Bottom padding clears vue-music-flow bar (h-60 / h-40 / h-20 by breakpoint) -->
     <!-- pb-60 sm:pb-40 xl:pb-24 -->
-    <main
-      class="flex-1"
-    >
+    <main class="flex-1">
       <slot />
     </main>
 
@@ -197,5 +219,4 @@ const navItems = computed<NavigationMenuItem[]>(() => [
     transform: scale(1) rotate(0deg);
   }
 }
-
 </style>
