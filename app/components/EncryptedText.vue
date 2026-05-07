@@ -3,6 +3,7 @@ import { Motion, useInView } from "motion-v";
 import { computed, onUnmounted, ref, watch } from "vue";
 
 const props = withDefaults(defineProps<Props>(), {
+  start: true,
   revealDelayMs: 15,
   charset:
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-={}[];:,.<>/?",
@@ -11,6 +12,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 interface Props {
   text: string;
+  start?: boolean;
   class?: string;
   revealDelayMs?: number;
   charset?: string;
@@ -135,7 +137,7 @@ function stopAnimation() {
 
 // Watch for view changes
 watch(isInView, (newVal) => {
-  if (newVal) {
+  if (newVal && props.start !== false) {
     startAnimation();
   } else {
     stopAnimation();
@@ -147,11 +149,26 @@ watch(isInView, (newVal) => {
 watch(
   () => props.text,
   () => {
-    if (isInView.value) {
+    if (isInView.value && props.start !== false) {
       startAnimation();
     }
   },
   { immediate: true },
+);
+
+watch(
+  () => props.start,
+  (shouldStart) => {
+    if (shouldStart === false) {
+      stopAnimation();
+      revealCount.value = 0;
+      return;
+    }
+
+    if (isInView.value) {
+      startAnimation();
+    }
+  },
 );
 
 onUnmounted(() => {

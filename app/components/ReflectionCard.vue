@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { useInView } from "motion-v";
+import { computed, ref } from "vue";
 import {
   formatReflectionDate,
   type Reflection,
@@ -22,6 +23,8 @@ const TAG_BADGE_LOOKUP: Record<string, { color: BadgeColor; icon: string }> = {
 const props = defineProps<{
   reflection: Reflection;
 }>();
+const cardRef = ref<HTMLElement>();
+const isCardInView = useInView(cardRef, { once: true });
 
 function tagBadgeAppearance(tag: string): { color: BadgeColor; icon: string } {
   const key = tag.trim().toLowerCase();
@@ -45,37 +48,42 @@ const reflectionText = computed(() => props.reflection.paragraphs.join("\n\n"));
 </script>
 
 <template>
-  <UCard
-    variant=""
-    :ui="{
-      header: 'p-2 sm:p-2',
-      body: 'p-2 sm:p-2',
-      footer: 'p-2 sm:p-2',
-    }"
-  >
-    <template #header>
-      <p class="text-xs">
-        <span class="text-highlighted font-medium">{{ reflection.name }}</span>
-        <span class="text-dimmed"> • {{ formatReflectionDate(reflection.date) }}</span>
-      </p>
-    </template>
+  <div ref="cardRef">
+    <UCard
+      :ui="{
+        header: 'p-2 sm:p-2',
+        body: 'p-2 sm:p-2',
+        footer: 'p-2 sm:p-2',
+      }"
+    >
+      <template #header>
+        <p class="text-xs">
+          <span class="text-highlighted font-medium">{{ reflection.name }}</span>
+          <span class="text-dimmed"> • {{ formatReflectionDate(reflection.date) }}</span>
+        </p>
+      </template>
 
-    <div class="text-sm whitespace-pre-line">
-      <EncryptedText :text="reflectionText" encrypted-class="text-muted" />
-    </div>
-
-    <template #footer>
-      <div class="flex flex-wrap gap-2">
-        <UBadge
-          v-for="item in badgeItems"
-          :key="item.key"
-          :label="item.label"
-          :color="item.color"
-          :icon="item.icon"
-          size="sm"
-          variant="soft"
+      <div class="text-sm whitespace-pre-line">
+        <EncryptedText
+          :text="reflectionText"
+          :start="isCardInView"
+          encrypted-class="text-muted"
         />
       </div>
-    </template>
-  </UCard>
+
+      <template #footer>
+        <div class="flex flex-wrap gap-2">
+          <UBadge
+            v-for="item in badgeItems"
+            :key="item.key"
+            :label="item.label"
+            :color="item.color"
+            :icon="item.icon"
+            size="sm"
+            variant="soft"
+          />
+        </div>
+      </template>
+    </UCard>
+  </div>
 </template>

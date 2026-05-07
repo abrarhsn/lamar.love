@@ -67,6 +67,28 @@ const reflectionsData: Reflection[] = [
     ],
     tags: ["Love"],
   },
+  {
+    name: "Abrar Hassan",
+    date: new Date(2003, 4, 6),
+    paragraphs: [
+      "I believe, with every fibre of my being, that your every intention is woven from love, a love so pure it needs no proof.",
+      "Even if I told you my favourite colour was black, and you answered with white, time and again, I would not doubt you.",
+      "For I know, in the marrow of my knowing, that each letter, each syllable, each quiet reason you offered was born from absolute love.",
+      "Beautifully, intimately wrong, yet never anything less than love.",
+    ],
+    tags: ["Love"],
+  },
+  {
+    name: "Abrar Hassan",
+    date: new Date(2003, 4, 6),
+    paragraphs: [
+      "I believe, with every fibre of my being, that your every intention is woven from love, a love so pure it needs no proof.",
+      "Even if I told you my favourite colour was black, and you answered with white, time and again, I would not doubt you.",
+      "For I know, in the marrow of my knowing, that each letter, each syllable, each quiet reason you offered was born from absolute love.",
+      "Beautifully, intimately wrong, yet never anything less than love.",
+    ],
+    tags: ["Love"],
+  },
 ];
 
 export function useReflections() {
