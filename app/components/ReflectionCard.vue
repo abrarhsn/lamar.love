@@ -40,6 +40,8 @@ const badgeItems = computed(() =>
     ...tagBadgeAppearance(tag),
   })),
 );
+
+const reflectionText = computed(() => props.reflection.paragraphs.join("\n\n"));
 </script>
 
 <template>
@@ -58,10 +60,8 @@ const badgeItems = computed(() =>
       </p>
     </template>
 
-    <div class="space-y-3">
-      <p v-for="(p, i) in reflection.paragraphs" :key="i" class="text-sm">
-        {{ p }}
-      </p>
+    <div class="text-sm whitespace-pre-line">
+      <EncryptedText :text="reflectionText" encrypted-class="text-muted" />
     </div>
 
     <template #footer>

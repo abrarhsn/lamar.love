@@ -3,7 +3,7 @@ import { Motion, useInView } from "motion-v";
 import { computed, onUnmounted, ref, watch } from "vue";
 
 const props = withDefaults(defineProps<Props>(), {
-  revealDelayMs: 50,
+  revealDelayMs: 15,
   charset:
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-={}[];:,.<>/?",
   flipDelayMs: 50,
