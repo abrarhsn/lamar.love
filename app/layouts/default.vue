@@ -1,25 +1,56 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from "@nuxt/ui";
+import type { TMusicFlowOptions } from "vue-music-flow";
 import { formatTimeAgo } from "@vueuse/core";
-import { useDark } from "@vueuse/core";
-import { computed, nextTick, onMounted, ref, shallowRef, watch } from "vue";
-import { createMusicFlowWaveformOptions } from "~/composables/musicFlowWaveformOptions";
+import { computed, ref, watch } from "vue";
 
-const musicFlowOptions = shallowRef(createMusicFlowWaveformOptions());
+const FALLBACK_PRIMARY = "#529766";
+const colorMode = useColorMode();
 
-function syncMusicFlowWaveformOptions() {
-  musicFlowOptions.value = createMusicFlowWaveformOptions();
-  useMusicFlow(musicFlowOptions.value);
+function resolveUiPrimaryColor(): string {
+  if (!import.meta.client) return FALLBACK_PRIMARY;
+  const style = getComputedStyle(document.documentElement);
+  const candidates = ["--color-primary-500", "--color-primary", "--ui-primary"] as const;
+  for (const variable of candidates) {
+    const value = style.getPropertyValue(variable).trim();
+    if (value) return value;
+  }
+  return FALLBACK_PRIMARY;
 }
 
-syncMusicFlowWaveformOptions();
-
-onMounted(() => {
-  syncMusicFlowWaveformOptions();
+const musicFlowOptions = computed<TMusicFlowOptions>(() => {
+  const primary = resolveUiPrimaryColor();
+  const waveColor = colorMode.value === "dark" ? "#ffffff" : "#000000";
+  return {
+    height: 50,
+    waveColor,
+    barWidth: 4,
+    barGap: 4,
+    barRadius: 4,
+    barHeight: 0.8,
+    dragToSeek: { debounceTime: 1000 },
+    minPxPerSec: 0,
+    autoScroll: false,
+    autoCenter: false,
+    hideScrollbar: false,
+    interact: true,
+    autoplay: true,
+    progressColor: primary,
+    cursorColor: primary,
+    cursorWidth: 1,
+  };
 });
 
-const isDark = useDark();
-watch(isDark, () => nextTick(syncMusicFlowWaveformOptions));
+const { wavesurfer } = useMusicFlow(musicFlowOptions.value);
+
+watch(musicFlowOptions, (options) => {
+  useMusicFlow(options);
+  wavesurfer.value?.setOptions({
+    waveColor: options.waveColor,
+    progressColor: options.progressColor,
+    cursorColor: options.cursorColor,
+  });
+});
 
 const isNotificationsSlideoverOpen = ref(false);
 const { notifications } = useNotifications();
@@ -129,7 +160,7 @@ const navItems = computed<NavigationMenuItem[]>(() => [
     </main>
 
     <!-- Fixed bottom player (positioning is handled inside MusicFlow) -->
-    <MusicFlow :options="musicFlowOptions" />
+    <MusicFlow :options="musicFlowOptions" :hide-playlist-popup="true" />
   </div>
 </template>
 
