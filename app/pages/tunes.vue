@@ -2,11 +2,26 @@
 import type { TMusicFlow } from "vue-music-flow";
 import { createMusicFlowWaveformOptions } from "~/composables/musicFlowWaveformOptions";
 
-const { onPlaySingleTrack, isTrackPlaying } = useMusicFlow(
+const { onPlayAsPlaylist, isTrackPlaying } = useMusicFlow(
   createMusicFlowWaveformOptions(),
 );
 
+const lordiMp3 = encodeURIComponent(
+  "Girl in a Suitcase - Lordi (youtube).mp3",
+);
+
 const tracks: TMusicFlow[] = [
+  {
+    id: 5,
+    audio: `/tunes/${lordiMp3}`,
+    title: "Girl in a Suitcase",
+    artist: "Lordi",
+    artwork: "https://placehold.co/512x512",
+    album: "Tunes",
+    original: {
+      source: "/tunes/",
+    },
+  },
   {
     id: 1,
     audio:
@@ -83,7 +98,7 @@ const tracks: TMusicFlow[] = [
         <UButton
           size="xs"
           variant="soft"
-          @click="onPlaySingleTrack(track)"
+          @click="onPlayAsPlaylist(tracks, track)"
         >
           {{ isTrackPlaying(track.id) ? "Pause" : "Play" }}
         </UButton>

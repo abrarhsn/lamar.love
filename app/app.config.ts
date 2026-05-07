@@ -4,7 +4,11 @@ export default defineAppConfig({
     colors: {
       primary: "sage",
       neutral: "vanta",
-    }
+    },
+    icons: {
+      light: "i-ph:sun-dim-fill",
+      dark: "i-ph:moon-fill",
+    },
   },
 });
   
