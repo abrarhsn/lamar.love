@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from "@nuxt/ui";
+import { formatTimeAgo } from "@vueuse/core";
 import { useDark } from "@vueuse/core";
-import { computed, nextTick, onMounted, shallowRef, watch } from "vue";
+import { computed, nextTick, onMounted, ref, shallowRef, watch } from "vue";
 import { createMusicFlowWaveformOptions } from "~/composables/musicFlowWaveformOptions";
 
 const musicFlowOptions = shallowRef(createMusicFlowWaveformOptions());
@@ -19,6 +20,9 @@ onMounted(() => {
 
 const isDark = useDark();
 watch(isDark, () => nextTick(syncMusicFlowWaveformOptions));
+
+const isNotificationsSlideoverOpen = ref(false);
+const { notifications } = useNotifications();
 
 const navItems = computed<NavigationMenuItem[]>(() => [
   { label: "Reflections", to: "/reflections" },
@@ -60,13 +64,66 @@ const navItems = computed<NavigationMenuItem[]>(() => [
       </template>
 
       <template #right>
-        <UColorModeButton variant="ghost" />
+        <div class="flex items-center gap-1">
+          <UButton
+            icon="i-ph:cards-three-fill"
+            variant="ghost"
+            color="neutral"
+            aria-label="Open notifications"
+            @click="isNotificationsSlideoverOpen = true"
+          />
+          <UColorModeButton variant="ghost" />
+        </div>
       </template>
     </UHeader>
 
+    <USlideover
+      v-model:open="isNotificationsSlideoverOpen"
+      title="Notifications"
+    >
+      <template #body>
+        <NuxtLink
+          v-for="notification in notifications"
+          :key="notification.id"
+          :to="`/inbox?id=${notification.id}`"
+          class="relative -mx-3 flex items-center gap-3 rounded-md px-3 py-2.5 hover:bg-elevated/50 first:-mt-3 last:-mb-3"
+        >
+          <UChip
+            color="error"
+            :show="!!notification.unread"
+            inset
+          >
+            <UAvatar
+              v-bind="notification.sender.avatar"
+              :alt="notification.sender.name"
+              size="md"
+            />
+          </UChip>
+
+          <div class="flex-1 text-sm">
+            <p class="flex items-center justify-between gap-3">
+              <span class="font-medium text-highlighted">{{ notification.sender.name }}</span>
+
+              <time
+                :datetime="notification.date"
+                class="text-xs text-muted"
+              >
+                {{ formatTimeAgo(new Date(notification.date)) }}
+              </time>
+            </p>
+
+            <p class="text-dimmed">
+              {{ notification.body }}
+            </p>
+          </div>
+        </NuxtLink>
+      </template>
+    </USlideover>
+
     <!-- Bottom padding clears vue-music-flow bar (h-60 / h-40 / h-20 by breakpoint) -->
+    <!-- pb-60 sm:pb-40 xl:pb-24 -->
     <main
-      class="flex-1 pb-60 sm:pb-40 xl:pb-24"
+      class="flex-1"
     >
       <slot />
     </main>

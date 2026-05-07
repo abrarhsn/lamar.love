@@ -34,7 +34,7 @@ function trackArtistByIndex(index: number) {
   <UContainer class="max-w-xl my-6 md:my-12">
     <div class="mb-6">
       <h1 class="text-2xl font-medium text-highlighted tracking-tight">Tunes</h1>
-      <h2 class="text-2xl font-medium text-muted tracking-tight leading-7">
+      <h2 class="text-2xl font-medium text-dimmed tracking-tight leading-7">
         Love notes in melody, for us and every moment we share.
       </h2>
     </div>

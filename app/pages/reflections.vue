@@ -8,7 +8,7 @@ const { reflections } = useReflections();
     <UContainer class="max-w-xl my-6 md:my-12">
       <div class="mb-9">
         <h1 class="text-2xl font-medium text-highlighted tracking-tight">Reflections</h1>
-        <h2 class="text-2xl font-medium text-muted tracking-tight leading-7">
+        <h2 class="text-2xl font-medium text-dimmed tracking-tight leading-7">
           Intimate thoughts about you, the world, and everything in between.
         </h2>
       </div>
