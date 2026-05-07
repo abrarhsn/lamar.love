@@ -29,7 +29,7 @@ const eloiseLetter = [
 const DUMMY_NOTIFICATIONS: NotificationItem[] = [
   {
     id: "notif-1",
-    unread: true,
+    unread: false,
     sender: {
       name: "Maya",
       avatar: {
@@ -55,7 +55,7 @@ const DUMMY_NOTIFICATIONS: NotificationItem[] = [
   },
   {
     id: "notif-3",
-    unread: true,
+    unread: false,
     sender: {
       name: "Noah",
       avatar: {
@@ -68,7 +68,7 @@ const DUMMY_NOTIFICATIONS: NotificationItem[] = [
   },
   {
     id: "notif-4",
-    unread: true,
+    unread: false,
     sender: {
       name: "Eloise",
       avatar: {
