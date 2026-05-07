@@ -1,80 +1,11 @@
 <script setup lang="ts">
-import type { TMusicFlow } from "vue-music-flow";
 import { createMusicFlowWaveformOptions } from "~/composables/musicFlowWaveformOptions";
 
 const { onPlayAsPlaylist, isTrackPlaying } = useMusicFlow(
   createMusicFlowWaveformOptions(),
 );
 
-const lordiMp3 = encodeURIComponent(
-  "Girl in a Suitcase - Lordi (youtube).mp3",
-);
-
-const tracks: TMusicFlow[] = [
-  {
-    id: 5,
-    audio: `/tunes/${lordiMp3}`,
-    title: "Girl in a Suitcase",
-    artist: "Lordi",
-    artwork: "https://placehold.co/512x512",
-    album: "Tunes",
-    original: {
-      source: "/tunes/",
-    },
-  },
-  {
-    id: 1,
-    audio:
-      "https://ik.imagekit.io/ltdassets/public/audio/edm/all-world-music/dreamy-slow.mp3",
-    title: "Sample Audio 1#",
-    artist: "John Walkers",
-    artwork: "https://placehold.co/512x512",
-    album: "Free Audio",
-    original: {
-      source:
-        "https://ik.imagekit.io/ltdassets/public/audio/edm/all-world-music/",
-    },
-  },
-  {
-    id: 2,
-    audio:
-      "https://ik.imagekit.io/ltdassets/public/audio/edm/all-world-music/dreamy-slow.mp3",
-    title: "Sample Audio 2#",
-    artist: "Steve Rooney",
-    artwork: "https://placehold.co/512x512",
-    album: "Free Audio",
-    original: {
-      source:
-        "https://ik.imagekit.io/ltdassets/public/audio/edm/all-world-music/",
-    },
-  },
-  {
-    id: 3,
-    audio:
-      "https://ik.imagekit.io/ltdassets/public/audio/edm/all-world-music/dreamy-slow.mp3",
-    title: "Sample Audio 3#",
-    artist: "Julie Rock",
-    artwork: "https://placehold.co/512x512",
-    album: "Free Audio",
-    original: {
-      source:
-        "https://ik.imagekit.io/ltdassets/public/audio/edm/all-world-music/",
-    },
-  },
-  {
-    id: 4,
-    audio:
-      "https://ik.imagekit.io/ltdassets/public/audio/edm/all-world-music/dreamy-slow.mp3",
-    title: "Sample Audio 4#",
-    artist: "Hans Broom",
-    artwork: "https://placehold.co/512x512",
-    album: "Free Audio",
-    original: {
-      source:
-        "https://ik.imagekit.io/ltdassets/public/audio/edm/all-world-music/",
-    },
-  },
-];
+const { tunes: tracks, loading } = useTunes();
 </script>
 
 <template>
@@ -89,7 +20,10 @@ const tracks: TMusicFlow[] = [
     <p class="text-muted mb-2 text-xs font-medium uppercase tracking-wide">
       Playlist
     </p>
-    <ul class="flex flex-col gap-1">
+
+    <p v-if="loading" class="text-muted text-sm">Loading tracks...</p>
+
+    <ul v-else-if="tracks.length" class="flex flex-col gap-1">
       <li
         v-for="track in tracks"
         :key="track.id"
@@ -105,5 +39,8 @@ const tracks: TMusicFlow[] = [
         <span class="text-highlighted text-sm">{{ track.title }}</span>
       </li>
     </ul>
+    <p v-else class="text-muted text-sm">
+      No tracks found in <code>/assets/tunes</code>.
+    </p>
   </div>
 </template>

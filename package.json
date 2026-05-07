@@ -17,6 +17,7 @@
     "@tailwindcss/vite": "^4.2.4",
     "@vueuse/core": "^14.3.0",
     "motion-v": "^2.2.1",
+    "music-metadata": "^11.12.3",
     "nuxt": "^4.4.2",
     "nuxt-music-flow": "^1.1.8",
     "tailwindcss": "^4.2.4",
