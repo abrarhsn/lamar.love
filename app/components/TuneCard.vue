@@ -13,7 +13,7 @@ defineEmits<{
 </script>
 
 <template>
-  <div class="card block rounded border border-transparent transition-all duration-75 hover:scale-105">
+  <div class="card block rounded border border-transparent transition-all duration-75 hover:scale-103">
     <button type="button" class="group block w-full rounded-md text-left" @click="$emit('click')">
       <img
         :src="artwork"

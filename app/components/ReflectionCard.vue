@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useInView } from "motion-v";
 import { computed, ref } from "vue";
-import { formatReflectionDate, type Reflection } from "~/composables/useReflections";
+import { formatReflectionDate, reflectionAuthorAvatar, type Reflection } from "~/composables/useReflections";
 
 type BadgeColor = "primary" | "secondary" | "success" | "info" | "warning" | "error" | "neutral";
 
@@ -35,6 +35,10 @@ const badgeItems = computed(() =>
 );
 
 const reflectionText = computed(() => props.reflection.paragraphs.join("\n\n"));
+
+const authorAvatar = computed(() => reflectionAuthorAvatar(props.reflection));
+
+const isSubtitleHovered = ref(false);
 </script>
 
 <template>
@@ -48,28 +52,29 @@ const reflectionText = computed(() => props.reflection.paragraphs.join("\n\n"));
         footer: 'p-0 sm:p-0 border-0 ring-0',
       }"
     >
+
       <template #header>
-        <p class="text-xs">
-          <span class="text-highlighted font-medium">{{ reflection.name }}</span>
-          <span class="text-dimmed"> • {{ formatReflectionDate(reflection.date) }}</span>
-        </p>
+        <UAlert
+          :description="reflection.subtitle"
+          color="primary"
+          :variant="isSubtitleHovered ? 'solid' : 'soft'"
+          size="sm"
+          class="mb-4 transition-all duration-200"
+          @mouseenter="isSubtitleHovered = true"
+          @mouseleave="isSubtitleHovered = false"
+        />
       </template>
 
-      <div class="text-sm whitespace-pre-line">
+      <div class="text-sm whitespace-pre-line mb-4">
         <EncryptedText :text="reflectionText" :start="isCardInView" encrypted-class="text-muted" />
       </div>
 
       <template #footer>
-        <div class="flex flex-wrap gap-2">
-          <UBadge
-            v-for="item in badgeItems"
-            :key="item.key"
-            :label="item.label"
-            :color="item.color"
-            :icon="item.icon"
-            size="sm"
-            variant="soft"
-          />
+        <div class="flex items-center gap-2">
+          <UAvatar v-bind="authorAvatar" :alt="reflection.name" size="xs" />
+          <p class="text-xs leading-tight">
+            <span class="text-highlighted font-medium">{{ reflection.name }}</span>
+          </p>
         </div>
       </template>
     </UCard>

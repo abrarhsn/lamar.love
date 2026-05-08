@@ -177,7 +177,7 @@ const navItems = computed<NavigationMenuItem[]>(() => [
 
     <!-- Bottom padding clears vue-music-flow bar (h-60 / h-40 / h-20 by breakpoint) -->
     <!-- pb-60 sm:pb-40 xl:pb-24 -->
-    <main class="flex-1">
+    <main class="flex-1 pb-60 sm:pb-40 xl:pb-24">
       <slot />
     </main>
 
