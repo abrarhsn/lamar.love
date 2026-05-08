@@ -75,6 +75,32 @@ const timelineUi = {
       </h2>
     </div>
 
-    <UTimeline :items="items"  :ui="timelineUi" :default-value="2" />
+    <UTimeline :items="items" :ui="timelineUi" :default-value="2">
+      <template #title="{ item }">
+        <UPopover
+          mode="hover"
+          :open-delay="50"
+          :close-delay="50"
+          :content="{ side: 'right', align: 'center', sideOffset: 8 }"
+          :ui="{ content: 'p-2' }"
+        >
+          <span
+            class="select-none hover:text-primary"
+          >
+            {{ item.title }}
+          </span>
+          <template #content>
+            <img
+              class="block w-[min(280px,calc(100vw-2rem))] h-auto rounded-sm"
+              src="https://placehold.co/560x360/1c1917/a8a29e/png?text=Preview"
+              width="280"
+              height="180"
+              alt=""
+              loading="lazy"
+            />
+          </template>
+        </UPopover>
+      </template>
+    </UTimeline>
   </UContainer>
 </template>
