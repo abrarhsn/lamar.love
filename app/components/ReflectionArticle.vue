@@ -1,48 +1,25 @@
 <script setup lang="ts">
-import { useInView } from "motion-v";
 import { computed, ref } from "vue";
 import { formatReflectionDate, reflectionAuthorAvatar, type Reflection } from "~/composables/useReflections";
-
-type BadgeColor = "primary" | "secondary" | "success" | "info" | "warning" | "error" | "neutral";
-
-const TAG_BADGE_LOOKUP: Record<string, { color: BadgeColor; icon: string }> = {
-  love: { color: "error", icon: "i-ph:heart-fill" },
-  strength: { color: "success", icon: "i-ph:hand-fist-fill" },
-};
 
 const props = defineProps<{
   reflection: Reflection;
 }>();
-const cardRef = ref<HTMLElement>();
-const isCardInView = useInView(cardRef, { once: true });
-
-function tagBadgeAppearance(tag: string): { color: BadgeColor; icon: string } {
-  const key = tag.trim().toLowerCase();
-  return (
-    TAG_BADGE_LOOKUP[key] ?? {
-      color: "neutral",
-      icon: "i-ph:hash-fill",
-    }
-  );
-}
-
-const badgeItems = computed(() =>
-  props.reflection.tags.map((tag, index) => ({
-    key: `${tag}-${index}`,
-    label: tag,
-    ...tagBadgeAppearance(tag),
-  })),
-);
 
 const reflectionText = computed(() => props.reflection.paragraphs.join("\n\n"));
-
 const authorAvatar = computed(() => reflectionAuthorAvatar(props.reflection));
-
 const isSubtitleHovered = ref(false);
 </script>
 
 <template>
-  <div ref="cardRef">
+  <div>
+    <div class="mb-5">
+      <p class="text-base text-dimmed font-medium mb-2">
+        {{ formatReflectionDate(reflection.date) }} • {{ reflection.tags[0] }}
+      </p>
+      <h1 class="text-3xl font-medium text-highlighted tracking-tight max-w-md">{{ reflection.title }}</h1>
+    </div>
+
     <UCard
       class="border-0 ring-0 outline-none shadow-none"
       :ui="{
@@ -52,7 +29,6 @@ const isSubtitleHovered = ref(false);
         footer: 'p-0 sm:p-0 border-0 ring-0',
       }"
     >
-
       <template #header>
         <UAlert
           :description="reflection.subtitle"
@@ -66,7 +42,7 @@ const isSubtitleHovered = ref(false);
       </template>
 
       <div class="text-sm whitespace-pre-line mb-4">
-        <EncryptedText :text="reflectionText" :start="isCardInView" encrypted-class="text-muted" />
+        <EncryptedText :text="reflectionText" encrypted-class="text-muted" />
       </div>
 
       <template #footer>
@@ -78,5 +54,9 @@ const isSubtitleHovered = ref(false);
         </div>
       </template>
     </UCard>
+
+    <div class="mt-5">
+      <ULink to="/reflections" class="text-sm">Back to Reflections</ULink>
+    </div>
   </div>
 </template>
