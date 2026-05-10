@@ -31,53 +31,14 @@ const DUMMY_NOTIFICATIONS: NotificationItem[] = [
     id: "notif-1",
     unread: false,
     sender: {
-      name: "Maya",
+      name: "Abrar",
       avatar: {
-        src: "https://i.pravatar.cc/100?img=5",
+        src: "https://api.dicebear.com/9.x/bottts-neutral/png?seed=Abrar%20Hassan&size=128",
       },
     },
-    action: "Dropped a new late-night tune in your inbox.",
-    body: "Dropped a new late-night tune in your inbox. Give it a spin when the house is quiet.",
-    date: new Date(Date.now() - 1000 * 60 * 12).toISOString(),
-  },
-  {
-    id: "notif-2",
-    unread: false,
-    sender: {
-      name: "Jules",
-      avatar: {
-        src: "https://i.pravatar.cc/100?img=12",
-      },
-    },
-    action: "Reacted to your latest reflection with a heart.",
-    body: "Reacted to your latest reflection with a heart. They're loving what you're sharing.",
-    date: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(),
-  },
-  {
-    id: "notif-3",
-    unread: false,
-    sender: {
-      name: "Noah",
-      avatar: {
-        src: "https://i.pravatar.cc/100?img=21",
-      },
-    },
-    action: "Sent you a memory from last summer.",
-    body: "Sent you a memory from last summer. Worth revisiting when you need a smile.",
-    date: new Date(Date.now() - 1000 * 60 * 60 * 18).toISOString(),
-  },
-  {
-    id: "notif-4",
-    unread: false,
-    sender: {
-      name: "Eloise",
-      avatar: {
-        src: "https://i.pravatar.cc/100?img=32",
-      },
-    },
-    action: "Sent you something longer than a text.",
-    body: eloiseLetter,
-    date: new Date(Date.now() - 1000 * 60 * 60 * 26).toISOString(),
+    action: "Dropped a new late-night message in your inbox.",
+    body: "I love you, Lamar. From the bottom of my heart. I made this as a forever place to record our love. Please accept this as my one month anniversary gift.",
+    date: new Date("2026-05-09T00:00:00Z").toISOString(),
   },
 ];
 
