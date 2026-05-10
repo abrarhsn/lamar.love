@@ -1,6 +1,10 @@
 <script setup lang="ts">
 const { reflections } = useReflections();
 
+const reflectionsByDateDesc = computed(() =>
+  [...reflections].sort((a, b) => b.date.getTime() - a.date.getTime())
+);
+
 function seedGradient(seed: string | number) {
   const n = typeof seed === "string" ? [...seed].reduce((acc, c) => acc + c.charCodeAt(0), 0) : seed;
   const h1 = (n * 137) % 360;
@@ -10,11 +14,10 @@ function seedGradient(seed: string | number) {
 </script>
 <template>
   <div>
-    <!-- <SleekLineCursor /> -->
     <UContainer class="max-w-xl my-6 md:my-12">
       <div class="mb-9">
         <h1 class="text-xl font-medium text-highlighted tracking-tight">Reflections</h1>
-        <h2 class="text-xl font-medium text-dimmed tracking-tight leading-7">
+        <h2 class="text-xl font-medium text-dimmed tracking-tight leading-6.5">
           Intimate thoughts about you, the world, and everything in between.
         </h2>
       </div>
@@ -28,7 +31,7 @@ function seedGradient(seed: string | number) {
             body: 'px-0 sm:px-0',
             root: 'hover:bg-transparent',
           }"
-          v-for="(reflection, index) in reflections"
+          v-for="(reflection, index) in reflectionsByDateDesc"
           variant="ghost"
           :key="`${index}-${reflection.date.getTime()}`"
           :title="reflection.title"
@@ -45,7 +48,7 @@ function seedGradient(seed: string | number) {
       </div>
 
       <!-- <div class="space-y-9">
-        <div v-for="(reflection, index) in reflections" :key="`${index}-${reflection.date.getTime()}`">
+        <div v-for="(reflection, index) in reflectionsByDateDesc" :key="`${index}-${reflection.date.getTime()}`">
           <ReflectionCard :reflection="reflection" />
         </div>
       </div> -->

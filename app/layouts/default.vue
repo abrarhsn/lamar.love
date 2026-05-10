@@ -89,15 +89,26 @@ watch(isNotificationsSlideoverOpen, (open) => {
 
 const navItems = computed<NavigationMenuItem[]>(() => [
   { label: "Reflections", to: "/reflections" },
-  { label: "Moments", to: "/moments" },
   { label: "Tunes", to: "/tunes" },
   { label: "Future", to: "/future" },
+  {
+    label: "Moments",
+    to: "/moments",
+    icon: "i-ph:lock-key-fill",
+    trailingIcon: "i-ph:lock-key-fill",
+    disabled: true,
+    class: "hover:!text-highlighted",
+    ui: {
+      linkLeadingIcon: "hidden size-4 sm:block",
+      linkTrailingIcon: "block sm:hidden",
+    },
+  },
 ]);
 </script>
 
 <template>
   <div class="flex min-h-dvh flex-col">
-    <UHeader class="bg-default border-none" mode="modal">
+    <UHeader class="bg-default border-none" mode="modal" to="/love">
       <template #title>
         <span class="site-title inline-flex items-center gap-1">
           <span class="title-heart inline-block rotate-330 text-lg">❤</span>
@@ -111,7 +122,7 @@ const navItems = computed<NavigationMenuItem[]>(() => [
         variant="link"
         :ui="{
           link: 'text-highlighted hover:text-muted',
-          linkLeadingIcon: 'text-default hover:text-dimmed',
+          linkLeadingIcon: 'text-default',
         }"
       />
 
@@ -121,7 +132,8 @@ const navItems = computed<NavigationMenuItem[]>(() => [
           orientation="vertical"
           class="-mx-2.5"
           :ui="{
-            link: `font-semibold tracking-tight text-highlighted`,
+            link: `text-3xl font-semibold tracking-tight text-highlighted`,
+            linkLeadingIcon: 'text-default shrink-0 size-1',
           }"
         />
       </template>
@@ -182,7 +194,7 @@ const navItems = computed<NavigationMenuItem[]>(() => [
     </main>
 
     <!-- Fixed bottom player (positioning is handled inside MusicFlow) -->
-    <MusicFlow :options="musicFlowOptions" :hide-playlist-popup="true" />
+    <MusicFlow :options="musicFlowOptions" :hide-playlist-popup="false" />
   </div>
 </template>
 
