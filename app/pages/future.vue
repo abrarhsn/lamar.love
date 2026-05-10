@@ -148,7 +148,7 @@ const timelineUi = {
       </h2>
     </div>
 
-    <UTimeline :items="items" :ui="timelineUi" :default-value="10">
+    <UTimeline :items="items" :ui="timelineUi" :default-value="11">
       <template #title="{ item }">
         <UPopover
           mode="hover"
