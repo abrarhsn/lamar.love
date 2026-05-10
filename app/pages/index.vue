@@ -6,8 +6,8 @@ definePageMeta({
 const { displayOpacity } = useCircularRevealProgress();
 const isReadyToEnter = computed(() => displayOpacity.value >= 0.999);
 
-const goToReflections = async () => {
-  await navigateTo("/reflections");
+const goToLove = async () => {
+  await navigateTo("/love");
 };
 </script>
 
@@ -24,8 +24,8 @@ const goToReflections = async () => {
       type="button"
       class="fixed inset-0 z-50 bg-transparent"
       :class="isReadyToEnter ? 'cursor-pointer pointer-events-auto' : 'pointer-events-none'"
-      aria-label="Enter reflections"
-      @click="goToReflections"
+      aria-label="Enter love"
+      @click="goToLove"
     />
   </div>
 </template>
