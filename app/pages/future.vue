@@ -108,6 +108,15 @@ const items: TimelineItem[] = [
     image: "/images/calendar.jpg"
   },
   {
+    date: "11th October 2026",
+    title: "Six Months of Us",
+    description:
+      "Six months of us, and it all went by so fast. We have been through everything together, and it is still nothing but love and yearning. I understand you more deeply than I ever have, and we are connected so tightly now that our hearts are intertwined.",
+    icon: "i-ph:hand-heart-fill",
+    value: "11th October 2026",
+    image: "/images/six-months.png"
+  },
+  {
     date: "???",
     title: "Our First Real Date",
     icon: "i-lucide-circle-help",
@@ -148,7 +157,7 @@ const timelineUi = {
       </h2>
     </div>
 
-    <UTimeline :items="items" :ui="timelineUi" :default-value="11">
+    <UTimeline :items="items" :ui="timelineUi" :default-value="12">
       <template #title="{ item }">
         <UPopover
           mode="hover"

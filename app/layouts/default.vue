@@ -56,6 +56,9 @@ watch(musicFlowOptions, (options) => {
 
 const isNotificationsSlideoverOpen = ref(false);
 const { notifications } = useNotifications();
+const hasUnreadNotifications = computed(() =>
+  notifications.value.some((notification) => notification.unread),
+);
 const notificationForModal = ref<NotificationItem | null>(null);
 const notificationModalOpen = ref(false);
 
@@ -140,13 +143,15 @@ const navItems = computed<NavigationMenuItem[]>(() => [
 
       <template #right>
         <div class="flex items-center gap-1">
-          <UButton
-            icon="i-ph:cards-three-fill"
-            variant="ghost"
-            color="neutral"
-            aria-label="Open notifications"
-            @click="isNotificationsSlideoverOpen = true"
-          />
+          <UChip color="error" :show="hasUnreadNotifications" inset>
+            <UButton
+              icon="i-ph:cards-three-fill"
+              variant="ghost"
+              color="neutral"
+              aria-label="Open notifications"
+              @click="isNotificationsSlideoverOpen = true"
+            />
+          </UChip>
           <UColorModeButton variant="ghost" />
         </div>
       </template>
@@ -185,11 +190,12 @@ const navItems = computed<NavigationMenuItem[]>(() => [
     <NotificationDetailModal
       v-model:open="notificationModalOpen"
       :notification="notificationForModal"
+      @action="isNotificationsSlideoverOpen = false"
     />
 
     <!-- Bottom padding clears vue-music-flow bar (h-60 / h-40 / h-20 by breakpoint) -->
     <!-- pb-60 sm:pb-40 xl:pb-24 -->
-    <main class="flex-1 pb-60 sm:pb-40 xl:pb-24">
+    <main class="flex flex-1 flex-col pb-60 sm:pb-40 xl:pb-24">
       <slot />
     </main>
 

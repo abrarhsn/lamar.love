@@ -14,6 +14,10 @@ export interface NotificationItem {
   /** Full message shown when the notification is opened in the modal. */
   body: string;
   date: string;
+  /** Label for the button at the end of the message. */
+  actionLabel?: string;
+  /** Route the button opens. */
+  actionTo?: string;
 }
 
 const eloiseLetter = [
@@ -27,6 +31,21 @@ const eloiseLetter = [
 ].join("\n\n");
 
 const DUMMY_NOTIFICATIONS: NotificationItem[] = [
+  {
+    id: "notif-6-months",
+    unread: true,
+    sender: {
+      name: "Abrar",
+      avatar: {
+        src: "https://api.dicebear.com/9.x/bottts-neutral/png?seed=Abrar%20Hassan&size=128",
+      },
+    },
+    action: "Asked you to promise the years still ahead.",
+    body: "I can't wait until half a year turns into half a decade and then half a century. Promise me that we'll hit these three miles together.",
+    date: new Date("2026-10-10T22:00:00+01:00").toISOString(),
+    actionLabel: "I promise",
+    actionTo: "/6-months",
+  },
   {
     id: "notif-1",
     unread: false,

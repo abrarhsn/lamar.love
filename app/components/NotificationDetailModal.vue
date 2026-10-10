@@ -8,9 +8,21 @@ const props = defineProps<{
 
 const open = defineModel<boolean>("open", { required: true });
 
+const emit = defineEmits<{
+  action: [];
+}>();
+
 const timeAgo = computed(() =>
   props.notification ? formatTimeAgo(new Date(props.notification.date)) : "",
 );
+
+function followAction() {
+  const to = props.notification?.actionTo;
+  if (!to) return;
+  open.value = false;
+  emit("action");
+  void navigateTo(to);
+}
 </script>
 
 <template>
@@ -35,6 +47,12 @@ const timeAgo = computed(() =>
       >
         {{ notification.body }}
       </p>
+    </template>
+
+    <template v-if="notification?.actionTo" #footer>
+      <div class="flex justify-end">
+        <UButton :label="notification.actionLabel" @click="followAction" />
+      </div>
     </template>
   </UModal>
 </template>
